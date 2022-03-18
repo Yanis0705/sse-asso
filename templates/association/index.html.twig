@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Associations{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h1 class="mb-3 text-center">Associations</h1>
+        <div class="mb-2">
+        <form action="#" method="post">
+            <label for="terme">Nom de l'association :
+                <input type="search" name="terme">
+            </label>
+            <input class="mb-2 btn-rechercher" type="submit" name="s" value="Rechercher">
+        </form>
+        </div>
+        <div class="checkbox mb-4">
+            <div class="">
+            <label for="label-checkbox">Filtrer les catégories :</label>
+            </div>
+            <div class="">
+                <div class="">
+                <input type="checkbox" id="sport" name="sport"
+                       value=""
+                       checked="checked" >
+                <label for="sport">Sports</label>
+                <input type="checkbox" id="artEtCulture" name="artEtCulture"
+                       value=""
+                       checked="checked" >
+                <label for="artEtCulture">Art & Culture</label>
+                <input type="checkbox" id="famillesEtSolidarités" name="famillesEtSolidarités"
+                       value=""
+                       checked="checked" >
+                <label for="famillesEtSolidarités">Familles et Solidarités</label>
+                <input type="checkbox" id="SocioProfessionnelle" name="SocioProfessionnelle"
+                       value=""
+                       checked="checked">
+                <label for="SocioProfessionnelle">Socio-Professionnelles</label>
+
+                </div>
+                <div class="">
+
+                <input type="checkbox" id="Souvenirs" name="Souvenirs"
+                       value=""
+                       checked="checked">
+                <label for="Souvenirs">Souvenirs</label>
+                <input type="checkbox" id="Loisirs" name="Loisirs"
+                       value=""
+                       checked="checked">
+                <label for="Loisirs">Loisirs</label>
+                <input type="checkbox" id="DevelopementDurable" name="DevelopementDurable"
+                       value=""
+                       checked="checked">
+                <label for="DevelopementDurable">Dévelopement Durable</label>
+            </div>
+        </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered mb-0">
+                <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Catégorie</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Téléphone</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

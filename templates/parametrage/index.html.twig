@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paramétrages{% endblock %}
+{% block header %}
+    <link href="{{ asset('css/parametrage.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+
+    <h1 class="mb-4 text-center">Paramétrages</h1>
+    <div class="container d-flex align-items-center justify-content-center">
+        <form action="#" method="post">
+            <div class="mb-2">
+            <label class="mb-2" for="prixKmMinibus">Prix au Km minibus :</label>
+                <div class="">
+                <input type="number" id="prixKmMinibus" name="prixKmMinibus"> €/Km
+                </div>
+            </div>
+            <div class="mb-2">
+            <label class="mb-2" for="prixMomentConvivialité">Prix moment convivialité :</label>
+                <div class="">
+                <input type="number" id="prixMomentConvivialité" name="prixMomentConvivialité"> €/Personne
+                </div>
+            </div>
+            <div class="mb-2">
+            <label class="mb-2" for="prixMedaille">Prix médaille:</label>
+                <div class="">
+                <input type="number" id="prixMedaille" name="prixMedaille"> €/Médaille
+                </div>
+            </div>
+            <div class="mb-4">
+            <label class="mb-2" for="prixCoupe">Prix coupe:</label>
+                <div class="">
+                <input type="number" id="prixCoupe"  name="prixCoupe"> €/Coupe
+                </div>
+            </div>
+            <div class="mb-2">
+                <input class="mb-2 btn-enregistrer" type="submit" name="e" value="Enregistrer">
+            <a href="{{ path('subvention') }}">
+                <input class="mb-2 btn-retour" type="button" name="r" value="Retour">
+            </a>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Subventions{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+<div class="container mb-4">
+    <h1 class="mb-3 text-center">Subventions</h1>
+    <div class="containerFiltre">
+        <div class="colonneFiltre">
+            <div class="div-colonne1">
+                <form action="#" method="post">
+                    <label for="terme">Nom de l'association :
+                        <input type="search" name="terme">
+                    </label>
+                    <input class="mb-2 btn-rechercher" type="submit" name="s" value="Rechercher">
+                </form>
+            </div>
+            <div class="div-colonne1">
+                <label for="etatSubventions-select" class="col-form-label">Etat subventions :</label>
+                <select name="etatSubventions-select" id="etatSubventions-select">
+                    <option value="Toutes">Toutes</option>
+                    <option value="Attribuées"  selected="selected">Attribuées</option>
+                    <option value="Demandées"  selected="selected">Demandées</option>
+                    <option value="Refusées"  selected="selected">Refusées</option>
+                </select>
+            </div>
+            <div class="div-colonne1 mb-3">
+                <label for="start" class="col-form-label">Entre le </label>
+                <input type="date" id="start" name="trip-start" value="">
+
+                <label for="end" class="col-form-label">et le </label>
+                <input type="date" id="end" name="trip-end" value="">
+            </div>
+        </div>
+        <div class="colonneFiltre mb-3">
+                <label class="mb-4" for="label-checkbox">Types de subventions :</label>
+            <div class="div-checkbox mb-4">
+                <div class="div-checkbox2">
+                    <input type="checkbox" id="subFonctionnements" name="subFonctionnements"
+                           value=""
+                           checked="checked" >
+                    <label for="subFonctionnements">Subventions Fonctionnements</label>
+                </div>
+                <div class="div-checkbox2">
+                    <input type="checkbox" id="subEquipements" name="subEquipements"
+                           value=""
+                           checked="checked" >
+                    <label for="subEquipements">Subventions Equipements</label>
+                </div>
+            </div>
+            <div class="div-checkbox">
+                <div class="div-checkbox2">
+                    <input type="checkbox" id="subExceptionnelles" name="subExceptionnelles"
+                           value=""
+                           checked="checked" >
+                    <label for="subExceptionnelles">Subventions Exceptionnelles</label>
+                </div>
+                <div class="div-checkbox2">
+                    <input type="checkbox" id="subNatures" name="subNatures"
+                           value=""
+                           checked="checked">
+                        <label for="subNatures">Subventions Natures</label>
+                </div>
+            </div>
+        </div>
+        <div class="colonneFiltre">
+            <div class="div-checkbox2 mb-4">
+                <a href="{{ path('parametrage') }}">Paramétrages</a>
+            </div>
+            <div class="div-checkbox2">
+                <input class="mb-2 btn-rechercher" type="submit" name="s" value="Exporter le fichier en Excel">
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="table-responsive container">
+        <table class="table table-bordered mb-0">
+            <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Date Demande</th>
+                <th scope="col">Montant ou Qte Demandé</th>
+                <th scope="col">Montant ou Qte Attribué</th>
+                <th scope="col">Commentaire Demandeur</th>
+                <th scope="col">Commentaire Attributeur</th>
+                <th scope="col">Etat</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css?family=Questrial');
+
+body {
+    background-color: white !important;
+    /* On indique un redimensionnement proportionnel */
+}
+.fa{
+    color: black;!important;
+}
+
+.footer {
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgba(0,0,0,0.3);
+    position:fixed;
+    bottom:0;
+    width:100%;
+    padding-top:0;
+    padding-left: 10px;
+    height:40px;
+}
+.footer-links {
+    display: flex;
+    align-items: center;
+}
+.footer-links a {
+    text-decoration: none;
+    font-size: 24px;
+    padding: 0 10px;
+    color: #0081c3;
+;
+}
+.footer-links-copyright  a {
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 0 10px;
+}
+.footer-links-copyright a:hover {
+    opacity: 1;
+    color: #0081c3;
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 330px;
+    overflow: auto;
+
+}.my-custom-scrollbar-admin {
+    position: relative;
+    height: 600px;
+    overflow: auto;
+}
+
+.my-custom-scrollbar-participants {
+    position: relative;
+    height: 220px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}
+
+
+input, select, button, option, textarea {
+    color: black;
+}
+.titre{
+    color: #212529;
+}
+
+
+.mx-custom-rechercher {
+    margin-right: 9rem !important;
+    margin-left: 9rem !important;
+}
+
+label {
+    display: inline-block;
+}
+
+.tableParticipants {
+    max-width: 500px !important;
+}
+
+form {
+    display: inline;
+}
+
+.box {
+    width: 800px;
+    margin: 10% auto;
+    position: relative;
+}
+.face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+h1, .title-card {
+    font-family: 'Questrial', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.btn-rechercher{
+    background: #0081c3;
+    color: white;
+}
+.checkbox{
+    display: grid;
+    grid-template-columns: 1fr 5fr
+}
+
+.containerFiltre {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+/*// Smallest device*/
+@media (min-width: 100px) and (max-width: 575px) {
+    .containerFiltre {
+        grid-template-columns: 1fr;
+    }
+}
+
+/*// Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+    .containerFiltre {
+        grid-template-columns: 1fr;
+    }
+}
+
+/*// Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+    .containerFiltre {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/*// Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+    .containerFiltre {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+/*// Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+    .containerFiltre {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+.colonneFiltre {
+    margin: 0;
+}
+.div-checkbox{
+    display: grid;
+    grid-template-columns: 1fr 1fr
+}
+.div-checkbox2{
+    width: 250px;
+}
+.div-colonne1{
+    width: 500px;
+}
+.div-colonne2{
+    width: 200px;
+}
+* {
+    color: black;
+}
+
+
