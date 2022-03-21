@@ -34,6 +34,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto">
+
                     <li class="nav-item active">
                         <a class="nav-link " id="navlink" href="{{ path('association') }}">Associations</a>
                     </li>
@@ -44,12 +45,13 @@
                         <a class="nav-link " id="navlink" href="{{ path('ticket') }}">Tickets</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link " id="navlink" href="">Crénaux Salles</a>
+                        <a class="nav-link " id="navlink" href="{{ path('creneau') }}">Crénaux Salles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navlink" href="">Se Deconnecter</a>
+                        <a class="nav-link" id="navlink" href="{{ path('app_logout') }}">Se Deconnecter</a>
                         <i class="fa-solid fa-1"></i>
                     </li>
+
                 </ul>
             </div>
         </div>

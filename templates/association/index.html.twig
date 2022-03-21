@@ -7,7 +7,6 @@
 
 {% block body %}
     <div class="container">
-
         <h1 class="mb-3 text-center">Associations</h1>
         <div class="mb-2">
         <form action="#" method="post">
@@ -17,48 +16,57 @@
             <input class="mb-2 btn-rechercher" type="submit" name="s" value="Rechercher">
         </form>
         </div>
-        <div class="checkbox mb-4">
-            <div class="">
+        <div class="checkbox-asso mb-4">
+            <div class="div-colonne4">
             <label for="label-checkbox">Filtrer les catégories :</label>
             </div>
-            <div class="">
-                <div class="">
+            <div class="div-checkbox-association">
+                <div class="div-colonne3">
                 <input type="checkbox" id="sport" name="sport"
                        value=""
                        checked="checked" >
                 <label for="sport">Sports</label>
-                <input type="checkbox" id="artEtCulture" name="artEtCulture"
-                       value=""
-                       checked="checked" >
-                <label for="artEtCulture">Art & Culture</label>
+                </div>
+                <div class="div-colonne4">
+                    <input type="checkbox" id="Souvenirs" name="Souvenirs"
+                           value=""
+                           checked="checked">
+                    <label for="Souvenirs">Souvenirs</label>
+                </div>
+                <div class="div-colonne2">
                 <input type="checkbox" id="famillesEtSolidarités" name="famillesEtSolidarités"
                        value=""
                        checked="checked" >
                 <label for="famillesEtSolidarités">Familles et Solidarités</label>
+                </div>
+                <div class="div-colonne2">
                 <input type="checkbox" id="SocioProfessionnelle" name="SocioProfessionnelle"
                        value=""
                        checked="checked">
                 <label for="SocioProfessionnelle">Socio-Professionnelles</label>
-
                 </div>
-                <div class="">
-
-                <input type="checkbox" id="Souvenirs" name="Souvenirs"
-                       value=""
-                       checked="checked">
-                <label for="Souvenirs">Souvenirs</label>
+                <div class="div-colonne3">
                 <input type="checkbox" id="Loisirs" name="Loisirs"
                        value=""
                        checked="checked">
                 <label for="Loisirs">Loisirs</label>
+                </div>
+                <div class="div-colonne4">
+                    <input type="checkbox" id="artEtCulture" name="artEtCulture"
+                           value=""
+                           checked="checked" >
+                    <label for="artEtCulture">Art & Culture</label>
+                </div>
+                <div class="div-colonne2">
                 <input type="checkbox" id="DevelopementDurable" name="DevelopementDurable"
                        value=""
                        checked="checked">
                 <label for="DevelopementDurable">Dévelopement Durable</label>
+                </div>
             </div>
         </div>
         </div>
-        <div class="table-responsive">
+        <div class="table-responsive container-fluid">
             <table class="table table-bordered mb-0">
                 <thead>
                 <tr>
@@ -75,5 +83,4 @@
                 </tbody>
             </table>
         </div>
-    </div>
 {% endblock %}

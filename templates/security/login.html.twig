@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block header %}
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    {% if error is defined %}
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+    {% endif %}
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+
+                <form method="post" class="login100-form validate-form" action="{{ path('app_login') }}">
+                <span class="login100-form-title p-b-48"></span>
+						<h3>Veuillez vous identifier</h3>
+
+                    <div class="wrap-input100 validate-input" data-validate="Entrer votre pseudo">
+                        <input class="input100" id="input100" type="text"
+                               value="{{ app.request.cookies.get('cookieUsername') }}" placeholder="Login"
+                               name="email"
+                               autocomplete="username" required autofocus>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Enter mot de passe">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+                        <input class="input100" id="input100" type="password" placeholder="Mot de passe" name="password"
+                                autocomplete="current-password" required>
+                    </div>
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}">
+
+                    <div class="container-login100-form-btn mb-2">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" type="submit">Connexion</button>
+                        </div>
+                    </div>
+                    <div class="text-center p-t-115">
+                        <div class="container mb-2"><br>
+                            <label>
+                                <input id="remember_me" type="checkbox" name="remember_me" value="on"
+                                        {% if app.request.cookies.get('cookieUsername') != '' %}
+                                    checked="checked"
+                                        {% endif %}>
+                                Se souvenir de moi
+                            </label>
+                        </div>
+                        {#                        <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>#}
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

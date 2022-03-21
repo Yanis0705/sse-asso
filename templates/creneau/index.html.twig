@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créneaux Salles{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div class="container mb-4">
+        <h1 class="mb-3 text-center">Créneaux Salles</h1>
+        <div class="containerFiltre">
+            <div class="colonneFiltre">
+                <div class="div-colonne1">
+                    <form action="#" method="post">
+                        <label for="terme">Nom de l'association :
+                            <input type="search" name="terme">
+                        </label>
+                        <input class="mb-2 btn-rechercher" type="submit" name="s" value="Rechercher">
+                    </form>
+                </div>
+                <div class="div-colonne1">
+                    <label for="filtreSalles-select" class="col-form-label">Filtrer les salles :</label>
+                    <select name="filtreSalles-select" id="filtreSalles-select">
+                        <option value="Toutes">Toutes</option>
+                        <option value="Salle1"  selected="selected">Salle 1</option>
+                        <option value="Salle2"  selected="selected">Salle 2</option>
+                        <option value="Salle3"  selected="selected">Salle 3</option>
+                    </select>
+                </div>
+                <div class="div-colonne1">
+                    <label for="typeCreneau-select" class="col-form-label">Etat subventions :</label>
+                    <select name="typeCreneau-select" id="typeCreneau-select">
+                        <option value="Tous">Tous</option>
+                        <option value="Regulier"  selected="selected">Régulier</option>
+                        <option value=Ponctuel"  selected="selected">Ponctuel</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive container">
+        <table class="table table-bordered mb-0">
+            <thead>
+            <tr>
+                <th scope="col">Demandeur</th>
+                <th scope="col">Type de Créneaux</th>
+                <th scope="col">Nom de la Salle</th>
+                <th scope="col">Jour de la semaine</th>
+                <th scope="col">Date de début</th>
+                <th scope="col">Heure de début</th>
+                <th scope="col">Date de fin</th>
+                <th scope="col">Heure de fin</th>
+                <th scope="col">Jauge</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
