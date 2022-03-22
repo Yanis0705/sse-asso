@@ -34,9 +34,9 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto">
-
+                    {% if app.user %}
                     <li class="nav-item active">
-                        <a class="nav-link " id="navlink" href="{{ path('association') }}">Associations</a>
+                        <a class="nav-link " id="navlink" href="{{ path('app_association_index') }}">Associations</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link " id="navlink" href="{{ path('subvention') }}">Subventions</a>
@@ -47,11 +47,17 @@
                     <li class="nav-item active">
                         <a class="nav-link " id="navlink" href="{{ path('creneau') }}">Crénaux Salles</a>
                     </li>
+{#                    {% if app.user.granted('ROLE_ADMIN') %}#}
+                        <li class="nav-item">
+                            <a class="nav-link" id="navlink" href="{{ path('app_register') }}">Ajouter Utilisateur</a>
+                            <i class="fa-solid fa-1"></i>
+                        </li>
+{#                    {% endif %}#}
                     <li class="nav-item">
                         <a class="nav-link" id="navlink" href="{{ path('app_logout') }}">Se Deconnecter</a>
                         <i class="fa-solid fa-1"></i>
                     </li>
-
+                    {% endif %}
                 </ul>
             </div>
         </div>

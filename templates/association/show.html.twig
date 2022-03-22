@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Association{% endblock %}
+
+{% block body %}
+    <h1>Association</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ association.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ association.nom }}</td>
+            </tr>
+            <tr>
+                <th>NomDetaille</th>
+                <td>{{ association.nomDetaille }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ association.description }}</td>
+            </tr>
+            <tr>
+                <th>Info</th>
+                <td>{{ association.info }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ association.email }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ association.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Logo</th>
+                <td>{{ association.logo }}</td>
+            </tr>
+            <tr>
+                <th>LienFacebook</th>
+                <td>{{ association.lienFacebook }}</td>
+            </tr>
+            <tr>
+                <th>LienTwitter</th>
+                <td>{{ association.lienTwitter }}</td>
+            </tr>
+            <tr>
+                <th>LienInstagram</th>
+                <td>{{ association.lienInstagram }}</td>
+            </tr>
+            <tr>
+                <th>NomPresident</th>
+                <td>{{ association.nomPresident }}</td>
+            </tr>
+            <tr>
+                <th>PrenomPresident</th>
+                <td>{{ association.prenomPresident }}</td>
+            </tr>
+            <tr>
+                <th>EmailPresident</th>
+                <td>{{ association.emailPresident }}</td>
+            </tr>
+            <tr>
+                <th>TelephonePresident</th>
+                <td>{{ association.telephonePresident }}</td>
+            </tr>
+            <tr>
+                <th>NomSecretaire</th>
+                <td>{{ association.nomSecretaire }}</td>
+            </tr>
+            <tr>
+                <th>PrenomSecretaire</th>
+                <td>{{ association.prenomSecretaire }}</td>
+            </tr>
+            <tr>
+                <th>EmailSecretaire</th>
+                <td>{{ association.emailSecretaire }}</td>
+            </tr>
+            <tr>
+                <th>TelephoneSecretaire</th>
+                <td>{{ association.telephoneSecretaire }}</td>
+            </tr>
+            <tr>
+                <th>NomTresorier</th>
+                <td>{{ association.nomTresorier }}</td>
+            </tr>
+            <tr>
+                <th>PrenomTresorier</th>
+                <td>{{ association.prenomTresorier }}</td>
+            </tr>
+            <tr>
+                <th>EmailTresorier</th>
+                <td>{{ association.emailTresorier }}</td>
+            </tr>
+            <tr>
+                <th>TelephoneTresorier</th>
+                <td>{{ association.telephoneTresorier }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_association_index') }}">back to list</a>
+
+    <a href="{{ path('app_association_edit', {'id': association.id}) }}">edit</a>
+
+    {{ include('association/_delete_form.html.twig') }}
+{% endblock %}

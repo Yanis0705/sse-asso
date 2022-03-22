@@ -26,6 +26,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
+    #[ORM\Column(type: 'boolean')]
+    private $administrateur;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -114,4 +117,17 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    public function getAdministrateur(): ?bool
+    {
+        return $this->administrateur;
+    }
+
+    public function setAdministrateur(bool $administrateur): self
+    {
+        $this->administrateur = $administrateur;
+
+        return $this;
+    }
+
 }
