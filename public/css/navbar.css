@@ -3,26 +3,21 @@
     background: white;
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
-#navlink {
-    color: #212529;
-}
-
-#navlink {
-    transition: color 0.5s;
-}
-#navlink:hover {
-    color: #0081c3;
-}
 .navbar-sortir .navbar-collapse {
     flex-grow: 0;
 }
-
 .navbar-sortir .navbar-brand img {
     width: 150px;
     height: 60px;
     /*border-radius: 50%;*/
 }
-
+#navlink {
+    color: #212529;
+    transition: color 0.5s;
+}
+#navlink:hover {
+    color: #0081c3;
+}
 .avatar-large {
     width: 40px;
     height: 40px;

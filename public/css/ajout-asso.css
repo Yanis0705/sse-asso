@@ -1,0 +1,29 @@
+.container-ajout-asso{
+    background: white;
+    border-style: solid;
+    border-color: #999999;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 20px 20px 20px 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+.contact-detail-asso{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-style: solid;
+    border-width: 1px;
+    border-color: grey;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+}
+.form1-ajout-asso-separation{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.block-button{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+label{
+    color: black;
+}

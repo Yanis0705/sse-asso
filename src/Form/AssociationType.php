@@ -18,7 +18,7 @@ class AssociationType extends AbstractType
             ->add('info')
             ->add('email')
             ->add('telephone')
-            ->add('logo')
+            ->add('siteWeb')
             ->add('lienFacebook')
             ->add('lienTwitter')
             ->add('lienInstagram')

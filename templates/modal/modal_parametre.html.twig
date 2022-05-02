@@ -1,0 +1,27 @@
+{% block stylesheets %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    <div class="modal" id="modalParametres{{ subvention.id }}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Paramètres Subvention</h5>
+                    <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                       href="{{ path('app_subvention_index') }}"></a>
+                </div>
+                <div class="modal-body text-center">
+                    <p>Paramètre(s) de la subvention :</p>
+                    {% for parametre in subvention.parametres %}
+                        <div>{{ parametre.nom }} : {{ parametre.valorisation }} {{ parametre.unite }}</div>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <a  type="button" class="btn-gradient-red" data-bs-dismiss="modal"
+                        href="{{ path('app_subvention_index') }}">Fermer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

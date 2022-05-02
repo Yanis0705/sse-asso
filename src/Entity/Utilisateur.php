@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -17,6 +18,11 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Assert\Regex(
+        pattern: "/^[\w\.]+@([\w]+\.)+[\a-z]{2,4}$/",
+        message: "Le format du mail n'est pas bon",
+        match: true,
+    )]
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private $email;
 
@@ -128,6 +134,11 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         $this->administrateur = $administrateur;
 
         return $this;
+    }
+
+    public function isGranted($role)
+    {
+        return in_array($role, $this->getRoles());
     }
 
 }

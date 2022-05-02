@@ -1,110 +1,99 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Association{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/detail-asso.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Association</h1>
+    <div class="container mb-3 text-center">
+    <h1>{{ association.nom }}</h1>
+        <div><h4>{{ association.nomDetaille }}</h4></div>
+        <div class="mb-3">
+        <div class="mb-2"><strong>Description : </strong>{{ association.description }}</div>
+        <div class="mb-3"><strong>Info : </strong>{{ association.info }}</div>
+        <div class="mb-3"><strong>Email : </strong>{{ association.email }}</div>
+        <div><strong>Téléphone : </strong>{{ association.telephone }}</div>
+        </div>
+        <div class="mb-3">
+            <a class="mr-5" href="{{ path('app_subvention_index', {'id': association.id}) }}">Subventions</a>
+            <a class="ml-5" href="{{ path('app_ticket_index', {'id': association.id}) }}">Tickets</a>
+        </div>
+        <div class="liens-detail-asso mb-3">
+            {% if association.siteWeb != null %}
+            <div class="lien-asso">
+                <a href="https://{{ association.siteWeb }}" class="btn border btn-gradient-web">
+                    <i class="fa-solid fa-at"></i>
+                </a>
+{#                {{ association.siteWeb }}#}
+            </div>
+            {% endif %}
+            {% if association.lienFacebook != null %}
+            <div class="lien-asso">
+            <a href="https://{{ association.lienFacebook }}" class="btn border btn-gradient-facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+{#                {{ association.lienFacebook }}#}
+            </div>
+            {% endif %}
+            {% if association.lienTwitter != null %}
+            <div class="lien-asso">
+                <a href="https://{{ association.lienTwitter }}" class="btn border btn-gradient-twitter">
+                    <i class="fa-brands fa-twitter"></i>
+                </a>
+{#                {{ association.lienTwitter }}#}
+            </div>
+            {% endif %}
+            {% if association.lienInstagram != null %}
+            <div class="lien-asso">
+                <a href="https://{{ association.lienInstagram }}" class="btn border btn-gradient-insta">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+{#                {{ association.lienInstagram }}#}
+            </div>
+            {% endif %}
+        </div>
+        <div class="contact-detail-asso mb-3">
+            <div class="detail-contact">
+                <div><h5>Président</h5></div>
+                <div>Nom : {{ association.nomPresident }}</div>
+                <div>Prénom : {{ association.prenomPresident }}</div>
+                <div>Téléphone : {{ association.telephonePresident }}</div>
+                <div>Email : {{ association.emailPresident }}</div>
+            </div>
+            <div class="detail-contact">
+                <div><h5>Secrétaire</h5></div>
+                <div>Nom : {{ association.nomSecretaire }}</div>
+                <div>Prénom : {{ association.prenomSecretaire}}</div>
+                <div>Téléphone : {{ association.telephoneSecretaire }}</div>
+                <div>Email : {{ association.emailSecretaire }}</div>
+            </div>
+            <div class="detail-contact">
+                <div><h5>Trésorier</h5></div>
+                <div>Nom : {{ association.nomTresorier }}</div>
+                <div>Prénom : {{ association.prenomTresorier }}</div>
+                <div>Téléphone : {{ association.telephoneTresorier }}</div>
+                <div>Email : {{ association.emailTresorier }}</div>
+            </div>
+        </div>
+        <a href="{{ path('app_association_edit', {'id': association.id}) }}"
+           class="btn border btn-gradient-green">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+        <a href="{{ path('app_association_index') }}"
+           class="btn border btn-gradient-blue">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="btn border btn-gradient-red" data-toggle="modal" data-target="#myModal{{ association.id }}">
+            <i class="fa-solid fa-trash-can"></i>
+        </button>
+        {{ include('modal/modal_delete_asso.html.twig') }}
+    </div>
+{% endblock %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ association.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ association.nom }}</td>
-            </tr>
-            <tr>
-                <th>NomDetaille</th>
-                <td>{{ association.nomDetaille }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ association.description }}</td>
-            </tr>
-            <tr>
-                <th>Info</th>
-                <td>{{ association.info }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ association.email }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ association.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Logo</th>
-                <td>{{ association.logo }}</td>
-            </tr>
-            <tr>
-                <th>LienFacebook</th>
-                <td>{{ association.lienFacebook }}</td>
-            </tr>
-            <tr>
-                <th>LienTwitter</th>
-                <td>{{ association.lienTwitter }}</td>
-            </tr>
-            <tr>
-                <th>LienInstagram</th>
-                <td>{{ association.lienInstagram }}</td>
-            </tr>
-            <tr>
-                <th>NomPresident</th>
-                <td>{{ association.nomPresident }}</td>
-            </tr>
-            <tr>
-                <th>PrenomPresident</th>
-                <td>{{ association.prenomPresident }}</td>
-            </tr>
-            <tr>
-                <th>EmailPresident</th>
-                <td>{{ association.emailPresident }}</td>
-            </tr>
-            <tr>
-                <th>TelephonePresident</th>
-                <td>{{ association.telephonePresident }}</td>
-            </tr>
-            <tr>
-                <th>NomSecretaire</th>
-                <td>{{ association.nomSecretaire }}</td>
-            </tr>
-            <tr>
-                <th>PrenomSecretaire</th>
-                <td>{{ association.prenomSecretaire }}</td>
-            </tr>
-            <tr>
-                <th>EmailSecretaire</th>
-                <td>{{ association.emailSecretaire }}</td>
-            </tr>
-            <tr>
-                <th>TelephoneSecretaire</th>
-                <td>{{ association.telephoneSecretaire }}</td>
-            </tr>
-            <tr>
-                <th>NomTresorier</th>
-                <td>{{ association.nomTresorier }}</td>
-            </tr>
-            <tr>
-                <th>PrenomTresorier</th>
-                <td>{{ association.prenomTresorier }}</td>
-            </tr>
-            <tr>
-                <th>EmailTresorier</th>
-                <td>{{ association.emailTresorier }}</td>
-            </tr>
-            <tr>
-                <th>TelephoneTresorier</th>
-                <td>{{ association.telephoneTresorier }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_association_index') }}">back to list</a>
-
-    <a href="{{ path('app_association_edit', {'id': association.id}) }}">edit</a>
-
-    {{ include('association/_delete_form.html.twig') }}
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 {% endblock %}

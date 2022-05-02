@@ -1,0 +1,23 @@
+.container-fluid{
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.container-ajout-ticket{
+    background: white;
+    width: 600px;
+    border-style: solid;
+    border-color: #999999;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 20px 20px 20px 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.block-button{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+label{
+    color: black;
+}

@@ -1,0 +1,70 @@
+{% block stylesheets %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    <div class="modal" id="modalAttribuerSubvention{{ subvention.id }}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Attribution Subvention</h5>
+                    <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                       href="{{ path('app_subvention_index') }}"></a>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Subvention {{ subvention.typeSubvention }} :</strong></p>
+                    {% if (subvention.montantOuQteDemande != null) %}
+                        <p>Le montant demandé est de : {{ subvention.montantOuQteDemande }}€</p>
+                        <p>Commentaire demandeur : {{ subvention.commentaireDemandeur }}</p>
+                    {% endif %}
+                    {% set montantTotalDemandeAvecParam = 0 %}
+                    {% set montantDemandeAvecParam = 0 %}
+                    {% set montantTotalSubvention = 0 %}
+                    {% if (subvention.typeSubvention == 'Nature') %}
+                        <p><strong>Paramètre(s):</strong></p>
+                        {% for parametre in subvention.parametres %}
+                            <p>{{ parametre.nom }} : {{ parametre.valorisation }} {{ parametre.unite }}</p>
+                            {% set montantDemandeAvecParam = parametre.parametrage.valeur * parametre.valorisation %}
+                            {% set montantTotalDemandeAvecParam = montantTotalDemandeAvecParam + montantDemandeAvecParam %}
+                        {% endfor %}
+                        <p>Le montant estimé des paramètres est de : {{ montantTotalDemandeAvecParam }}€</p>
+                    {% endif %}
+                    {% set montantTotalSubvention = montantTotalDemandeAvecParam + subvention.montantOuQteDemande %}
+                    <p>Le <strong>montant total</strong> de la demande de subvention avec l'estimation des paramètres est de :
+                        <strong>{{ montantTotalSubvention }}€</strong></p>
+                    {% for parametre in subvention.parametres %}
+                        {% if (parametre.parametrage.id == "6") %}
+                            <p class="alert-message_subv"><strong class="alert-message_subv">Attention :</strong>
+                                le paramètre suivant n'a pas été pris en compte dans le montant total
+                                {{ parametre.nom }} : {{ parametre.valorisation }} {{ parametre.unite }}</p>
+                        {% endif %}
+                    {% endfor %}
+                    <h5>A Attribuer</h5>
+                    <form action="{{ path('app_subvention_attribution', {'id': subvention.id}) }}" method="POST">
+                        <div id="div-attribution-montant-comm">
+                        <div class="form-group">
+                            <label for="montant-a-attribuer">Montant en € :</label>
+                            <input type="number" class="form-control" name="montant-a-attribuer" id="montant-a-attribuer">
+                        </div>
+                        <div class="form-group">
+                            <label for="commentaire-attributeur">Commentaire attributeur :</label>
+{#                            WTF#}
+                            <textarea class="form-control" name="commentaire-attrib" id="commentaire-attrib"></textarea>
+                        </div>
+                        </div>
+                        <div>
+                            <input class="form-check-input ml-2" type="checkbox" id="refus-subv" name="refus-subv" value="true">
+                            <label class="form-check-label ml-5" for="refus-subv">Refuser la demande de subvention
+                            (Motif de refus à mettre dans commentaire attributeur)</label>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <a  type="button" class="btn-gradient-red" data-bs-dismiss="modal"
+                        href="{{ path('app_subvention_index') }}">Annuler</a>
+                    <button type="submit" class="btn-gradient-green">Attribuer</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

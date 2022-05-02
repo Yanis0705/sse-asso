@@ -3,8 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\AssociationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
+/**
+ * @ORM\Entity
+ * @Vich\Uploadable
+ */
 #[ORM\Entity(repositoryClass: AssociationRepository::class)]
 class Association
 {
@@ -32,7 +40,13 @@ class Association
     private $telephone;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $logo;
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $lienFacebook;
@@ -79,9 +93,24 @@ class Association
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $telephoneTresorier;
 
-    #[ORM\ManyToOne(inversedBy: 'association', targetEntity: Categorie::class, cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'association', targetEntity: Categorie::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $categorie;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $siteWeb;
+
+    #[ORM\OneToMany(mappedBy: 'demandeur', targetEntity: Ticket::class)]
+    private $tickets;
+
+    #[ORM\OneToMany(mappedBy: 'association', targetEntity: Subvention::class)]
+    private $subvention;
+
+    public function __construct()
+    {
+        $this->tickets = new ArrayCollection();
+        $this->subvention = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -160,16 +189,29 @@ class Association
         return $this;
     }
 
-    public function getLogo(): ?string
+    public function setImageFile(File $image = null)
     {
-        return $this->logo;
+        $this->imageFile = $image;
+
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
-    public function setLogo(?string $logo): self
+    public function getImageFile()
     {
-        $this->logo = $logo;
+        return $this->imageFile;
+    }
 
-        return $this;
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
     }
 
     public function getLienFacebook(): ?string
@@ -360,6 +402,83 @@ class Association
     public function setCategorie(Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getSiteWeb(): ?string
+    {
+        return $this->siteWeb;
+    }
+
+    public function setSiteWeb(?string $siteWeb): self
+    {
+        $this->siteWeb = $siteWeb;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @return Collection<int, Ticket>
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Ticket $ticket): self
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets[] = $ticket;
+            $ticket->setDemandeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Ticket $ticket): self
+    {
+        if ($this->tickets->removeElement($ticket)) {
+            // set the owning side to null (unless already changed)
+            if ($ticket->getDemandeur() === $this) {
+                $ticket->setDemandeur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Subvention>
+     */
+    public function getSubvention(): Collection
+    {
+        return $this->subvention;
+    }
+
+    public function addSubvention(Subvention $subvention): self
+    {
+        if (!$this->subvention->contains($subvention)) {
+            $this->subvention[] = $subvention;
+            $subvention->setAssociation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubvention(Subvention $subvention): self
+    {
+        if ($this->subvention->removeElement($subvention)) {
+            // set the owning side to null (unless already changed)
+            if ($subvention->getAssociation() === $this) {
+                $subvention->setAssociation(null);
+            }
+        }
 
         return $this;
     }

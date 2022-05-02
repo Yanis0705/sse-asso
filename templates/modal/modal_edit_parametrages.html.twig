@@ -1,0 +1,41 @@
+{% block stylesheets %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    <div class="modal" id="modalEditParametrages{{ parametrage.id }}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modification Paramètrage</h5>
+                    <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                       href="{{ path('app_parametrage_index') }}"></a>
+                </div>
+                <div class="modal-body text-center">
+                    <form action="{{ path('app_parametrage_edit', {'id': parametrage.id}) }}" method="POST">
+                        <div class="form-group">
+                            <label for="libelle-param">Libellé :</label>
+                            <input type="text" class="form-control" name="libelle-param" id="libelle-param"
+                                   value="{{ parametrage.libelle }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="valeur-param">Valeur :</label>
+                            <input type="text" class="form-control" name="valeur-param" id="valeur-param"
+                                   value="{{ parametrage.valeur }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="libelle-valeur-param">Unité :</label>
+                            <input type="text" class="form-control" name="libelle-valeur-param" id="libelle-valeur-param"
+                                   value="{{ parametrage.valeurLabel }}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn-gradient-green">Enregistrer</button>
+                        <a  type="button" class="btn-gradient-red" data-bs-dismiss="modal"
+                            href="{{ path('app_parametrage_index') }}">Fermer</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -8,91 +8,129 @@
 {% block body %}
 <div class="container">
     <h1 class="mb-3 text-center">Associations</h1>
-    <div class="mb-2">
-        <form action="#" method="post">
-            <label for="terme">Nom de l'association :
-                <input type="search" name="terme">
-            </label>
-            <input class="mb-2 btn-rechercher" type="submit" name="s" value="Rechercher">
+    <div class="nom-group"><h9>Filtres recherche</h9></div>
+    <div id="container-recherche" class="container-recherche mb-2">
+        <form id="filters" method="POST" action="{{ path('app_association_index') }}">
+            <div class="button-rechercher-asso form-group form-inline">
+                <label for="terme">Nom Association :
+                    <input class="form-control mr-2 ml-2" type="search" name="terme">
+                    <button  class="btn-gradient-blue" type="submit" name="s">Rechercher</button>
+                </label>
+            </div>
+            <div class="checkbox-asso mb-3">
+                <div class="div-colonne4">
+                    <label for="label-checkbox">Catégories :</label>
+                </div>
+                <div class="div-checkbox-association">
+                    <div class="div-colonne2">
+                        <input class="form-check-input" type="checkbox" id="cat1" name="cat1" value="1"
+                                {% if paramCat1 is defined and paramCat1 is not null %}
+                                    checked="checked"
+                                {% endif %}>
+                        <label for="cat1">Sport</label>
+                    </div>
+                    <div class="div-colonne2">
+                        <input class="form-check-input" type="checkbox" id="cat2" name="cat2" value="2"
+                                {% if paramCat2 is defined and paramCat2 is not null %}
+                                    checked="checked"
+                                {% endif %}>
+                        <label for="cat2">Loisirs</label>
+                    </div>
+                    <div class="div-colonne2">
+                    <input class="form-check-input" type="checkbox" id="cat3" name="cat3" value="3"
+                            {% if paramCat3 is defined and paramCat3 is not null %}
+                                checked="checked"
+                            {% endif %}>
+                    <label for="cat3">Familles et Solidarités</label>
+                    </div>
+                    <div class="div-colonne2">
+                    <input class="form-check-input" type="checkbox" id="cat4" name="cat4" value="4"
+                            {% if paramCat4 is defined and paramCat4 is not null %}
+                                checked="checked"
+                            {% endif %}>
+                    <label for="cat4">Socio-Professionnelles</label>
+                    </div>
+                    <div class="div-colonne2">
+                    <input class="form-check-input" type="checkbox" id="cat5" name="cat5" value="5"
+                            {% if paramCat5 is defined and paramCat5 is not null %}
+                                checked="checked"
+                            {% endif %}>
+                    <label for="cat5">Souvenirs</label>
+                    </div>
+                    <div class="div-colonne2">
+                    <input class="form-check-input" type="checkbox" id="cat6" name="cat6" value="6"
+                            {% if paramCat6 is defined and paramCat6 is not null %}
+                                checked="checked"
+                            {% endif %}>
+                    <label for="cat6">Art & Culture</label>
+                    </div>
+                    <div class="div-colonne2">
+                    <input class="form-check-input" type="checkbox" id="cat7" name="cat7" value="7"
+                            {% if paramCat7 is defined and paramCat7 is not null %}
+                                checked="checked"
+                            {% endif %}>
+                    <label for="cat7">Développement Durable</label>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
-    <div class="checkbox-asso mb-4">
-        <div class="div-colonne4">
-            <label for="label-checkbox">Filtrer les catégories :</label>
-        </div>
-        <div class="div-checkbox-association">
-            <div class="div-colonne3">
-                <input type="checkbox" id="sport" name="sport"
-                       value=""
-                       checked="checked" >
-                <label for="sport">Sports</label>
-            </div>
-            <div class="div-colonne4">
-                <input type="checkbox" id="Souvenirs" name="Souvenirs"
-                       value=""
-                       checked="checked">
-                <label for="Souvenirs">Souvenirs</label>
-            </div>
-            <div class="div-colonne2">
-                <input type="checkbox" id="famillesEtSolidarités" name="famillesEtSolidarités"
-                       value=""
-                       checked="checked" >
-                <label for="famillesEtSolidarités">Familles et Solidarités</label>
-            </div>
-            <div class="div-colonne2">
-                <input type="checkbox" id="SocioProfessionnelle" name="SocioProfessionnelle"
-                       value=""
-                       checked="checked">
-                <label for="SocioProfessionnelle">Socio-Professionnelles</label>
-            </div>
-            <div class="div-colonne3">
-                <input type="checkbox" id="Loisirs" name="Loisirs"
-                       value=""
-                       checked="checked">
-                <label for="Loisirs">Loisirs</label>
-            </div>
-            <div class="div-colonne4">
-                <input type="checkbox" id="artEtCulture" name="artEtCulture"
-                       value=""
-                       checked="checked" >
-                <label for="artEtCulture">Art & Culture</label>
-            </div>
-            <div class="div-colonne2">
-                <input type="checkbox" id="DevelopementDurable" name="DevelopementDurable"
-                       value=""
-                       checked="checked">
-                <label for="DevelopementDurable">Dévelopement Durable</label>
-            </div>
+    <div id="button-ajouter">
+    <a href="{{ path('app_association_new') }}" id="button-ajouter" class="btn-gradient-green mb-3">
+        <i class="fa-solid fa-plus"></i>
+    </a>
+    </div>
+</div>
+
+<div class="table-responsive container-fluid">
+    <div id="table-wrapper">
+        <div id="table-scroll">
+            <table class="table mb-0">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Catégorie</th>
+                    <th>E-mail</th>
+                    <th>Téléphone</th>
+                    <th class="col-actions">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for association in associations %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('app_association_show', {'id': association.id}) }}">
+                                {{ association.nom }}</a>
+                        </td>
+                        <td>{{ association.categorie.libelle }}</td>
+                        <td>{{ association.email }}</td>
+                        <td>{{ association.telephone }}</td>
+                        <td>
+                            <a href="{{ path('app_association_edit', {'id': association.id}) }}"
+                               class="btn border btn-gradient-green">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <button type="button" class="btn border btn-gradient-red" data-toggle="modal"
+                                   data-target="#myModal{{ association.id }}">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                            {{ include('modal/modal_delete_asso.html.twig') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="24">Aucune associations trouvées</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-<div class="table-responsive container-fluid">
-    <table class="table table-bordered mb-0">
-        <thead>
-        <tr>
-            <th scope="col">Nom</th>
-            <th scope="col">Catégorie</th>
-            <th scope="col">E-mail</th>
-            <th scope="col">Téléphone</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for association in associations %}
-            <tr>
-                <td><a href="{{ path('app_association_show', {'id': association.id}) }}">
-                        {{ association.nom }}</a>
-                </td>
-                <td>{{ association.categorie.libelle }}</td>
-                <td>{{ association.email }}</td>
-                <td>{{ association.telephone }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="24">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% endblock %}
 
-    <a href="{{ path('app_association_new') }}">Ajouter Asso Provisoire</a>
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 {% endblock %}

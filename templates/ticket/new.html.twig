@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter Ticket{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/ajout-ticket.css') }}">
+{% endblock %}
+
+
+{% block body %}
+<div class="container mb-3 text-center">
+    <h1>Ajouter Ticket</h1>
+    {{ form_start(form) }}
+    <div class="container-fluid text-center">
+        <div></div>
+        <div class="container-ajout-ticket">
+            <div class=" mb-4">
+                <div class="">
+                    {{ form_label(form.idClicko, 'IdClicko') }}
+                </div>
+                <div class="">
+                    {{ form_widget(form.idClicko) }}
+                </div>
+                <div class="">
+                    {{ form_label(form.idGST, 'IdGST') }}
+                </div>
+                <div class="">
+                    {{ form_widget(form.idGST) }}
+                </div>
+                <div class="">
+                    {{ form_label(form.date, 'Date') }}
+                </div>
+                <div class="">
+                    {{ form_widget(form.date) }}
+                </div>
+                <div class="">
+                    {{ form_label(form.idTypeTicket, 'Titre') }}
+                </div>
+                <div class="">
+                    {{ form_widget(form.idTypeTicket) }}
+                </div>
+                <div class="">
+                    {{ form_label(form.titre, 'Titre') }}
+                </div>
+                <div class="">
+                    {{ form_widget(form.titre) }}
+                </div>
+                <div class="">
+                    {{ form_label(form.batiment, 'Bâtiment') }}
+                </div>
+                <div class="">
+                    {{ form_widget(form.batiment) }}
+                </div>
+                <div class="">
+                    {{ form_label(form.demandeur, 'Demandeur') }}
+                </div>
+                <div class="">
+                    {{ form_widget(form.demandeur) }}
+                </div>
+                <div class="">
+                    {{ form_label(form.statut, 'Statut') }}
+                </div>
+                <div class="">
+                    {{ form_widget(form.statut) }}
+                </div>
+            </div>
+            <div class="block-button">
+                <div class=" text-center ">
+                    <button class="btn-gradient-green">Enregistrer</button>
+                </div>
+                {{ form_end(form) }}
+                <div class="text-center ">
+                    <a href="{{ path('app_ticket_index') }}" class="btn-gradient-red" type="button">Annuler</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div></div>
+</div>
+{% endblock %}

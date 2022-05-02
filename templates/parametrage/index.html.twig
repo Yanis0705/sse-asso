@@ -1,49 +1,57 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Paramétrages{% endblock %}
+
 {% block header %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/parametrage.css') }}" rel="stylesheet"/>
-{% endblock %}
-{% block stylesheets %}
 {% endblock %}
 
 {% block body %}
-
-    <h1 class="mb-4 text-center">Paramétrages</h1>
-    <div class="container d-flex align-items-center justify-content-center">
-        <form action="#" method="post">
-            <div class="mb-2">
-            <label class="mb-2" for="prixKmMinibus">Prix au Km minibus :</label>
-                <div class="">
-                <input type="number" id="prixKmMinibus" name="prixKmMinibus"> €/Km
-                </div>
-            </div>
-            <div class="mb-2">
-            <label class="mb-2" for="prixMomentConvivialité">Prix moment convivialité :</label>
-                <div class="">
-                <input type="number" id="prixMomentConvivialité" name="prixMomentConvivialité"> €/Personne
-                </div>
-            </div>
-            <div class="mb-2">
-            <label class="mb-2" for="prixMedaille">Prix médaille:</label>
-                <div class="">
-                <input type="number" id="prixMedaille" name="prixMedaille"> €/Médaille
-                </div>
-            </div>
-            <div class="mb-4">
-            <label class="mb-2" for="prixCoupe">Prix coupe:</label>
-                <div class="">
-                <input type="number" id="prixCoupe"  name="prixCoupe"> €/Coupe
-                </div>
-            </div>
-            <div class="mb-2">
-                <input class="mb-2 btn-enregistrer" type="submit" name="e" value="Enregistrer">
-            <a href="{{ path('subvention') }}">
-                <input class="mb-2 btn-retour" type="button" name="r" value="Retour">
-            </a>
-            </div>
-        </form>
+<div class="container-fluid">
+    <h1 class="mb-3 text-center">Paramétrages</h1>
+    <div class="table-responsive container-fluid">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Libelle</th>
+                    <th>Valeur</th>
+                    <th>Unité</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for parametrage in parametrages %}
+                    <tr>
+                        <td>{{ parametrage.libelle }}</td>
+                        <td>{{ parametrage.valeur }}</td>
+                        <td>{{ parametrage.valeurLabel }}</td>
+                        <td>
+                            <button class="btn border btn-gradient-blue" data-toggle="modal"
+                               data-target="#modalEditParametrages{{ parametrage.id }}">
+                                <i class="fa-solid fa-pen-to-square"></i></button>
+                            {{ include('modal/modal_edit_parametrages.html.twig') }}
+                            <button class="btn border btn-gradient-red" data-toggle="modal"
+                                    data-target="#modalDeleteParametrage{{ parametrage.id }}">
+                                <i class="fa-solid fa-trash-can"></i></button>
+                            {{ include('modal/modal_delete_parametrage.html.twig') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">Aucun paramètrages trouvés</td>
+                    </tr>
+                {% endfor %}
+                {{ include('parametrage/_form.html.twig') }}
+            </tbody>
+        </table>
     </div>
+    <a href="{{ path('app_subvention_index') }}">Retour</a>
+</div>
+{% endblock %}
 
-
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 {% endblock %}

@@ -1,0 +1,30 @@
+{% block stylesheets %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+<div class="modal" id="myModal{{ association.id }}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Suppression Association</h5>
+                <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                   href="{{ path('app_association_show', {'id': association.id}) }}"></a>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer cette association?</p>
+            </div>
+            <div class="modal-footer">
+                <a  type="button" class="btn-gradient-red" data-bs-dismiss="modal"
+                    href="{{ path('app_association_show', {'id': association.id}) }}">Annuler</a>
+                <form method="POST" action="{{ path('app_association_delete', {'id': association.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ association.id) }}">
+                    <button style="color: white" class="btn-gradient-green" data-toggle="modal" data-target="#myModal">
+                        Supprimer
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

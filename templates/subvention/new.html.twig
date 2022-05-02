@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter Subvention{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/ajout-ticket.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container mb-3 text-center">
+    <h1 class="mb-3">Demande de Subvention</h1>
+    {{ form_start(form) }}
+    <div class="container-fluid text-center">
+        <div></div>
+        <div class="container-ajout-ticket">
+            <div class="mb-4">
+                <div class="form-group">
+                    <label for="type-subvention-select">Type de subvention</label>
+                    <select class="form-control" name="type-subvention-select" id="type-subvention-select" onchange="myFunction()">
+                        <option value="Fonctionnement">Fonctionnement</option>
+                        <option value="Equipement">Equipement</option>
+                        <option value="Exceptionnelle">Exceptionnelle</option>
+                        {% for parametrage in parametrages %}
+                            <option value="{{ parametrage.id }}">{{ parametrage.libelle }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+{#                <div class="">#}
+{#                    {{ form_label(form.typeSubvention, 'Type de subvention') }}#}
+{#                </div>#}
+{#                <div class="">#}
+{#                    {{ form_widget(form.typeSubvention) }}#}
+{#                </div>#}
+                <div class="">
+                    {{ form_label(form.dateDemande, 'Date Demande') }}
+                </div>
+                <div class="">
+                    {{ form_widget(form.dateDemande) }}
+                </div>
+                <div id="demo"></div>
+{#                <div class="">#}
+{#                    {{ form_label(form.montantOuQteDemande, 'Montant Demandé en €') }}#}
+{#                </div>#}
+{#                <div class="">#}
+{#                    {{ form_widget(form.montantOuQteDemande) }}#}
+{#                </div>#}
+                <div class="">
+                    {{ form_label(form.commentaireDemandeur, 'Commentaire Demandeur') }}
+                </div>
+                <div class="">
+                    {{ form_widget(form.commentaireDemandeur) }}
+                </div>
+                <div class="">
+                    {{ form_label(form.association, 'Association') }}
+                </div>
+                <div class="mb-3">
+                    {{ form_widget(form.association) }}
+                </div>
+                <div id="form-param-subv-new">
+                    <h5>Paramètre 1</h5>
+                    <div id="form-param-subv">
+                        <div>
+                            <div class="form-group">
+                                <label for="parametrage-select">Type Demande Nature</label>
+                                <select class="form-control" name="parametrage-select0" id="parametrage-select">
+                                    {% for parametrage in parametrages %}
+                                        <option value="{{ parametrage.id }}">{{ parametrage.libelle }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name-param0">Nom </label>
+                                <input type="text" class="form-control" name="name-param0" id="name-param">
+                            </div>
+                            <div class="form-group">
+                                <label for="valorisation-param0">Valeur </label>
+                                <input type="number" class="form-control" name="valorisation-param0" id="valorisation-param">
+                            </div>
+                            <div class="form-group">
+                                <label for="unite-param0">Unité (Km, personnes, VIP, Médailles, Coupes, etc...)</label>
+                                <input type="text" class="form-control" name="unite-param0" id="unite-param">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="nouveau-param"></div>
+                </div>
+                <input type="number" id="compteur" name="compteur-param" value="0">
+                <div id="empl-boutton-param" class="btn-group">
+                    <button type="button" class="btn-gradient-green mb-3" id="btn-ajout-param">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <button type="button" class="btn-gradient-red mb-3" id="btn-supp-param">
+                        <i class="fa-solid fa-minus"></i>
+                    </button>
+                </div>
+                <div class="block-button">
+                    <div class="text-center">
+                        <button type="submit" class="btn-gradient-green mt-3">Envoyer</button>
+                    </div>
+                    {{ form_end(form) }}
+                    <div class="text-center">
+                        <a href="{{ path('app_subvention_index') }}" type="button" class="btn-gradient-red mt-3">Annuler</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/jquery_subvention_new.js') }}"></script>
+    <script>
+        function myFunction() {
+            var select = document.getElementById("type-subvention-select").value;
+
+            if (select === "Fonctionnement") {
+                console.log(0)
+                document.getElementById("demo").innerHTML = ""
+
+            } else {
+                console.log(select)
+
+            }
+        }
+    </script>
+{% endblock %}
+

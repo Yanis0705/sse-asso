@@ -1,0 +1,25 @@
+{% block stylesheets %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    <div class="modal" id="modalNewSubvention" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Demande de subvention</h5>
+                    <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                       href="{{ path('app_subvention_new') }}"></a>
+                </div>
+                <div class="modal-body">
+                    <p>Votre subvention a bien été prise en compte.</p>
+                </div>
+                <div class="modal-footer">
+                    <a  type="button" class="btn-gradient-red" data-bs-dismiss="modal"
+                        href="{{ path('app_subvention_new') }}">Annuler</a>
+                    <button type="submit" class="btn-gradient-green">Créer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

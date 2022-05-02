@@ -1,44 +1,124 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tickets{% endblock %}
-
-{% block stylesheets %}
-{% endblock %}
+{% block title %}Ticket index{% endblock %}
 
 {% block body %}
-    <div class="container mb-4">
-        <h1 class="mb-3 text-center">Tickets</h1>
-        <div class="containerFiltre">
-            <div class="div-colonne1">
-                <label for="etatSubventions-select" class="col-form-label">Filtrer les tickets en fonction du statut :</label>
-                <select name="etatSubventions-select" id="etatSubventions-select">
-                    <option value="Tous" selected="selected">Tous</option>
-                    <option value="Ouvert" >Ouvert</option>
-                    <option value="EnCours">En cours</option>
-                    <option value="Cloture">Clôturé</option>
-                </select>
+<div class="container mb-4">
+    <h1 class="mb-3 text-center">Tickets</h1>
+    <form id="filters-index" method="POST" action="{{ path('app_ticket_index') }}">
+        <div class="nom-group">
+            <h9>Filtres</h9>
+        </div>
+        <div class="container-fluid mb-2" id="block-recherche-filtre">
+            <div class="containerFiltreTickets mb-3">
+                <div class="div-colonne1">
+                    <div class="div-colonne-filters-ticket">
+                    <label for="typeTicket-select" class="col-form-label">Types :</label>
+                    <select class="custom-select form-control" name="typeTicket-select" id="typeTicket-select">
+                        <option value="Tous" selected="selected">Tous</option>
+                        {% for typeTicket in typesTickets %}
+                            <option value="{{ typeTicket.id }}"
+                                    {% if (typeTicketSelected is defined) and (typeTicketSelected == typeTicket.id ) %}
+                                        selected="selected"
+                                    {% endif %}
+                            >{{ typeTicket.libelle }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="div-colonne-filters-ticket">
+                        <label for="statutTicket-select" class="col-form-label">Statuts :</label>
+                        <select class="custom-select form-control" name="statutTicket-select" id="statutTicket-select">
+                            <option value="Tous" selected="selected">Tous</option>
+                            {% for statut in statutsTickets %}
+                                <option value="{{ statut.id }}"
+                                        {% if (statutSelected is defined) and (statutSelected == statut.id ) %}
+                                            selected="selected"
+                                        {% endif %}
+                                >{{ statut.libelle }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button class="btn-gradient-blue mt-3" type="submit" name="s">Filtrer</button>
+                </div>
+                <div class="div-colonne1">
+                    <div class="div-colonne-filters-ticket">
+                        <label for="demandeurTicket-select" class="col-form-label">Demandeurs :</label>
+                        <select class="custom-select form-control" name="demandeurTicket-select" id="demandeurTicket-select">
+                            <option value="Tous" selected="selected">Tous</option>
+                            {% for demandeur in demandeurs %}
+                                <option value="{{ demandeur.id }}"
+                                        {% if (demandeurSelected is defined) and (demandeurSelected == demandeur.id ) %}
+                                            selected="selected"
+                                        {% endif %}
+                                >{{ demandeur.nom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group div-colonne-filters-ticket">
+                    <label for="batimentTicket-select" class="col-form-label">Bâtiments :</label>
+                    <select class="custom-select form-control" name="batimentTicket-select" id="batimentTicket-select">
+                        <option value="Tous" selected="selected">Tous</option>
+                        {% for batiment in batiments %}
+                            <option value="{{ batiment.id }}"
+                                    {% if (batimentSelected is defined) and (batimentSelected == batiment.id ) %}
+                                        selected="selected"
+                                    {% endif %}
+                            >{{ batiment.nom }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="container-fluid">
+            <button href="#" class="btn-gradient-green" id="btn-import-clicko">Import Clicko</button>
+        </div>
+    </form>
+</div>
+<div class="table-responsive container-fluid">
+    <div id="table-wrapper">
+        <div id="table-scroll">
+            <table class="table mb-0">
+                    <thead>
+                    <tr>
+                        <th>IdClicko</th>
+                        <th>IdGST</th>
+                        <th>Date</th>
+                        <th>Type de ticket</th>
+                        <th>Titre</th>
+                        <th>Bâtiment</th>
+                        <th>Demandeur</th>
+                        <th>Statut</th>
+                        <th class="col-actions">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                {% for ticket in tickets %}
+                    <tr>
+                        <td>{{ ticket.idClicko }}</td>
+                        <td>{{ ticket.idGST }}</td>
+                        <td>{{ ticket.date ? ticket.date|date('d-m-Y') : '' }}</td>
+                        <td>{{ ticket.idTypeTicket.libelle }}</td>
+                        <td>{{ ticket.titre }}</td>
+                        <td>{{ ticket.batiment }}</td>
+                        <td>{{ ticket.demandeur.nom }}</td>
+                        <td>{{ ticket.statut }}</td>
+                        <td>
+                            {% if (ticket.statut == 'Ouvert') %}
+                            <a href="#" class="btn-gradient-green" style="color: white">Ajout GST</a>
+                            {% else %}
+                                <div class="col-actions"></div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8">Aucun tickets trouvés</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-
-    <div class="table-responsive container">
-        <table class="table table-bordered mb-0">
-            <thead>
-            <tr>
-                <th scope="col">Id (ou Référence)</th>
-                <th scope="col">Date</th>
-                <th scope="col">Type de ticket</th>
-                <th scope="col">Titre</th>
-                <th scope="col">Demandeur</th>
-                <th scope="col">Bâtiment</th>
-                <th scope="col">Statut</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-
-            </tr>
-            </tbody>
-        </table>
-    </div>
+</div>
 {% endblock %}

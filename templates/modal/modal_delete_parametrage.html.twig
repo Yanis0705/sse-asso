@@ -1,0 +1,28 @@
+{% block stylesheets %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    <div class="modal" id="modalDeleteParametrage{{ parametrage.id }}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Suppression Paramétrage</h5>
+                    <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                       href="{{ path('app_parametrage_index') }}"></a>
+                </div>
+                <div class="modal-body">
+                    <p>Êtes-vous sûr de vouloir supprimer ce paramétrage?</p>
+                </div>
+                <div class="modal-footer">
+                    <a  type="button" class="btn-gradient-red" data-bs-dismiss="modal"
+                        href="{{ path('app_parametrage_index') }}">Annuler</a>
+                    <form method="POST" action="{{ path('app_parametrage_delete', {'id': parametrage.id}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ parametrage.id) }}">
+                        <button  style="color: white" class="btn-gradient-green">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

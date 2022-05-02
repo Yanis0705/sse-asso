@@ -8,24 +8,25 @@
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     <!-- Favicon-->
     <!-- Font Awesome icons -->
-    <script src="https://kit.fontawesome.com/439ee7a3f0.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
+
     <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet"/>
     <!-- Bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-    <div class="navbar navbar-expand-sm navbar-light navbar-sortir">
+    <div class="navbar navbar-expand-sm navbar-light navbar-sortir mb-4">
         <div class="container-fluid">
-
-                <a class="navbar-brand" href="">
+                <a class="navbar-brand" href="{{ path('app_association_index') }}">
                     <img class="" src="{{ asset('images/logo-sse.png') }}" alt=""/>
                     <i><strong class="titre">Gestion Associations</strong></i>
                 </a>
-
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,32 +34,35 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {% if app.user %}
                 <ul class="navbar-nav me-auto">
-                    {% if app.user %}
                     <li class="nav-item active">
                         <a class="nav-link " id="navlink" href="{{ path('app_association_index') }}">Associations</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link " id="navlink" href="{{ path('subvention') }}">Subventions</a>
+                        <a class="nav-link " id="navlink" href="{{ path('app_subvention_index') }}">Subventions</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link " id="navlink" href="{{ path('ticket') }}">Tickets</a>
+                        <a class="nav-link " id="navlink" href="{{ path('app_ticket_index') }}">Tickets</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link " id="navlink" href="{{ path('creneau') }}">Crénaux Salles</a>
-                    </li>
-{#                    {% if app.user.granted('ROLE_ADMIN') %}#}
+{#                    <li class="nav-item active">#}
+{#                        <a class="nav-link " id="navlink" href="{{ path('creneau') }}">Crénaux Salles</a>#}
+{#                    </li>#}
+                    {% if app.user.granted('ROLE_ADMIN') %}
                         <li class="nav-item">
-                            <a class="nav-link" id="navlink" href="{{ path('app_register') }}">Ajouter Utilisateur</a>
-                            <i class="fa-solid fa-1"></i>
+                            <a class="nav-link" id="navlink" href="{{ path('app_register') }}">Gestion Utilisateurs</a>
                         </li>
-{#                    {% endif %}#}
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" id="navlink" href="{{ path('app_logout') }}">Se Deconnecter</a>
-                        <i class="fa-solid fa-1"></i>
                     </li>
-                    {% endif %}
                 </ul>
+                {% if app.user.granted('ROLE_ADMIN') %}
+                    <span class="badge bg-danger">Admin</span>
+                {% else %}
+                    <span class="badge bg-success">User</span>
+                {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>
@@ -67,6 +71,7 @@
 </head>
 
 <body>
+<div id="main">
 {% for message in app.flashes('error') %}
     <div class="alert alert-danger">
         {{ message }}
@@ -76,18 +81,15 @@
 {% block body %}
 {% endblock %}
 
+{#<footer>#}
+{#    <div id="footer-copyright">#}
+{#        <a href="">© {{ "now" | date("Y") }} SSE-Association</a>#}
+{#    </div>#}
+{#</footer>#}
+</div>
 </body>
-<footer>
-    <div class="footer">
-        <div class="footer-links">
-        </div>
-        <div class="footer-copyright footer-links footer-links-copyright">
-            <a href="">© {{ "now" | date("Y") }} SSE-Asso</a>
-        </div>
-    </div>
-</footer>
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
 {% endblock %}
+
 </html>

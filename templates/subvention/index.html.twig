@@ -6,95 +6,189 @@
 {% endblock %}
 
 {% block body %}
-<div class="container mb-4">
-    <h1 class="mb-3 text-center">Subventions</h1>
-    <div class="containerFiltre">
-        <div class="colonneFiltre">
-            <div class="div-colonne1">
-                <form action="#" method="post">
-                    <label for="terme">Nom de l'association :
-                        <input type="search" name="terme">
-                    </label>
-                    <input class="mb-2 btn-rechercher" type="submit" name="s" value="Rechercher">
-                </form>
-            </div>
-            <div class="div-colonne1">
-                <label for="etatSubventions-select" class="col-form-label">Etat subventions :</label>
-                <select name="etatSubventions-select" id="etatSubventions-select">
-                    <option value="Toutes">Toutes</option>
-                    <option value="Attribuées"  selected="selected">Attribuées</option>
-                    <option value="Demandées"  selected="selected">Demandées</option>
-                    <option value="Refusées"  selected="selected">Refusées</option>
-                </select>
-            </div>
-            <div class="div-colonne1 mb-3">
-                <label for="start" class="col-form-label">Entre le </label>
-                <input type="date" id="start" name="trip-start" value="">
-
-                <label for="end" class="col-form-label">et le </label>
-                <input type="date" id="end" name="trip-end" value="">
-            </div>
-        </div>
-        <div class="colonneFiltre mb-3">
-                <label class="mb-4" for="label-checkbox">Types de subventions :</label>
-            <div class="div-checkbox mb-4">
-                <div class="div-checkbox2">
-                    <input type="checkbox" id="subFonctionnements" name="subFonctionnements"
-                           value=""
-                           checked="checked" >
-                    <label for="subFonctionnements">Subventions Fonctionnements</label>
+    <div class="container">
+        <h1 class="mb-3 text-center">Subventions</h1>
+        <form action="{{ path('app_subvention_index') }}" method="post">
+            <div class="nom-group">
+                <h9>Filtres recherche</h9>
+                {% if app.user.granted('ROLE_ADMIN') %}
+                <div class="mb-2" id="div-parametrages">
+                    <a id="button-parametrage"  href="{{ path('app_parametrage_index') }}">Paramétrages</a>
                 </div>
-                <div class="div-checkbox2">
-                    <input type="checkbox" id="subEquipements" name="subEquipements"
-                           value=""
-                           checked="checked" >
-                    <label for="subEquipements">Subventions Equipements</label>
+                {% endif %}
+            </div>
+            <div class="block-recherche mb-2" id="block-recherche">
+                <div class="containerFiltre">
+                    <div class="colonneFiltre">
+                        <div class="div-colonne1">
+                            <label for="associationSubvention-select" class="col-form-label">Nom de l'association :</label>
+                            <select class="custom-select form-control" name="associationSubvention-select" id="associationSubvention-select">
+                                <option value="Tous" selected="selected">Tous</option>
+                                {% for association in associations %}
+                                    <option value="{{ association.id }}"
+                                            {% if (associationSelected is defined) and (associationSelected == association.id ) %}
+                                                selected="selected"
+                                            {% endif %}
+                                    >{{ association.nom }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="div-colonne1">
+                            <label for="etatSubventions-select" class="col-form-label">Etat subventions :</label>
+                            <select class="custom-select form-control" name="etatSubventions-select" id="etatSubventions-select">
+                                <option value="Tous">Tous</option>
+                                {% for etatSubvention in etatSubventions %}
+                                    <option value="{{ etatSubvention.id }}"
+                                            {% if (etatSubventionSelected is defined) and (etatSubventionSelected == etatSubvention.id ) %}
+                                                selected="selected"
+                                            {% endif %}
+                                    >{{ etatSubvention.libelle }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <input class="mb-2 mt-3 btn-gradient-blue" type="submit" name="s" value="Rechercher">
+                    </div>
+                    <div class="form-check colonneFiltre">
+                        <p>Types de subventions :</p>
+                        <div class="div-checkbox mb-2">
+                            <div class="div-checkbox2">
+                                <input class="form-check-input" type="checkbox" id="subFonctionnements" name="subFonctionnements"
+                                       value="1"
+                                        {% if paramSubFonctionnements is defined and paramSubFonctionnements is not null %}
+                                            checked="checked"
+                                        {% endif %}>
+                                <label class="form-check-label" for="subFonctionnements">Subventions Fonctionnements</label>
+                            </div>
+                            <div class="div-checkbox2">
+                                <input class="form-check-input" type="checkbox" id="subEquipements" name="subEquipements"
+                                       value="2"
+                                        {% if paramSubEquipements is defined and paramSubEquipements is not null %}
+                                            checked="checked"
+                                        {% endif %}>
+                                <label class="form-check-label" for="subEquipements">Subventions Equipements</label>
+                            </div>
+                        </div>
+                        <div class="div-checkbox">
+                            <div class="div-checkbox2">
+                                <input class="form-check-input" type="checkbox" id="subExceptionnelles" name="subExceptionnelles"
+                                       value="3"
+                                        {% if paramSubExceptionnelles is defined and paramSubExceptionnelles is not null %}
+                                            checked="checked"
+                                        {% endif %}>
+                                <label class="form-check-label" for="subExceptionnelles">Subventions Exceptionnelles</label>
+                            </div>
+                            <div class="div-checkbox2">
+                                <input class="form-check-input" type="checkbox" id="subNatures" name="subNatures"
+                                       value="Nature"
+                                        {% if paramSubNatures is defined and paramSubNatures is not null %}
+                                            checked="checked"
+                                        {% endif %}>
+                                <label class="form-check-label" for="subNatures">Subventions Natures</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-inline div-colonne1 mb-3 mt-3">
+                            <div class="form-group form-inline">
+                                <label for="date-ticket-start" class="col-form-label mr-2">Entre   </label>
+                                <input class="form-control mr-2" type="date" id="date-ticket-start" name="date-ticket-start" {% if choixDateStart is defined %}
+                                       value="{{ choixDateStart }}{% endif %}">
+                                <label for="date-ticket-end" class="col-form-label mr-2">et   </label>
+                                <input class="form-control" type="date" id="date-ticket-end" name="date-ticket-end" {% if choixDateEnd is defined %}
+                                       value="{{ choixDateEnd }}{% endif %}">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="div-checkbox">
+            <div id="button-ajouter">
+                <a href="{{ path('app_subvention_new') }}" id="button-ajouter" class="btn-gradient-green mb-3">
+                    <i class="fa-solid fa-plus"></i>
+                </a>
+            </div>
+            <div class="colonneFiltre">
                 <div class="div-checkbox2">
-                    <input type="checkbox" id="subExceptionnelles" name="subExceptionnelles"
-                           value=""
-                           checked="checked" >
-                    <label for="subExceptionnelles">Subventions Exceptionnelles</label>
-                </div>
-                <div class="div-checkbox2">
-                    <input type="checkbox" id="subNatures" name="subNatures"
-                           value=""
-                           checked="checked">
-                        <label for="subNatures">Subventions Natures</label>
+                    <input class="mb-2 btn-rechercher btn-gradient-blue" type="submit" name="s"
+                           value="Exporter le fichier en Excel">
                 </div>
             </div>
-        </div>
-        <div class="colonneFiltre">
-            <div class="div-checkbox2 mb-4">
-                <a href="{{ path('parametrage') }}">Paramétrages</a>
-            </div>
-            <div class="div-checkbox2">
-                <input class="mb-2 btn-rechercher" type="submit" name="s" value="Exporter le fichier en Excel">
+        </form>
+    </div>
+    <div class="table-responsive container-fluid">
+        <div id="table-wrapper">
+            <div id="table-scroll">
+                <table class="table mb-0">
+                    <thead>
+                    <tr>
+                        <th>Association</th>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Parametres</th>
+                        <th>Montant Demandé</th>
+                        <th>Commentaire Demandeur</th>
+                        <th>Montant Attribué</th>
+                        <th>Commentaire Attributeur</th>
+                        <th>Etat</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for subvention in subventions %}
+                        <tr>
+                            <td>{{ subvention.association }}</td>
+                            <td>{{ subvention.dateDemande ? subvention.dateDemande|date('d-m-Y') : '' }}</td>
+                            <td>{{ subvention.typeSubvention }}</td>
+                            {% if subvention.parametres.values != null %}
+                                <td>
+                                    <a id="button-parametre" type="button" data-toggle="modal"
+                                       data-target="#modalParametres{{ subvention.id }}">
+                                        Paramètre(s)
+                                    </a>
+                                    {{ include('modal/modal_parametre.html.twig') }}
+                                </td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                            {% if (subvention.montantOuqteDemande != null) %}
+                                <td>{{ subvention.montantOuqteDemande }} €</td>
+                                <td>{{ subvention.commentaireDemandeur }}</td>
+                            {% else %}
+                                <td>Pas de montant demandé</td>
+                                <td></td>
+                            {% endif %}
+                            {% if (subvention.montantOuQteAttribues == null and subvention.commentaireAttributeur == null) %}
+                                <td>Non attribué</td>
+                                <td>Non attribué</td>
+                            {% else %}
+                                <td>{{ subvention.montantOuQteAttribues }} €</td>
+                                <td>{{ subvention.commentaireAttributeur }}</td>
+                            {% endif %}
+                            <td>{{ subvention.etat }}</td>
+                            <td>
+                                {% if (subvention.etat == 'A traiter') %}
+                                    <button class="btn border btn-gradient-green"
+                                            data-toggle="modal"
+                                            data-target="#modalAttribuerSubvention{{ subvention.id }}"
+                                    >Attribuer
+                                    </button>
+                                    {{ include('modal/modal_attribuer_subvention.html.twig') }}
+                                {% else %}
+                                    <div class="col-actions"></div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">Aucune subventions trouvées</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-</div>
-    <div class="table-responsive container">
-        <table class="table table-bordered mb-0">
-            <thead>
-            <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Date Demande</th>
-                <th scope="col">Montant ou Qte Demandé</th>
-                <th scope="col">Montant ou Qte Attribué</th>
-                <th scope="col">Commentaire Demandeur</th>
-                <th scope="col">Commentaire Attributeur</th>
-                <th scope="col">Etat</th>
-                <th scope="col">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
+{% endblock %}
 
-            </tr>
-            </tbody>
-        </table>
-    </div>
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 {% endblock %}
